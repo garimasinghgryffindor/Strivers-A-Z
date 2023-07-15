@@ -37,29 +37,29 @@ public:
 class Solution {
 public:
     bool checkValidString(string s) {
-        int left = 0, right = 0;
+        int low = 0, high = 0;
         for(auto x: s) {
             if(x == '(') {
-                left++;
-                right++;
+                low++;
+                high++;
             } else if(x == ')') {
-                left--;
-                right--;
+                low--;
+                high--;
             } else {
-                left--;
-                right++;
+                low--;
+                high++;
             }
             
             // because -> )( is invalid
-            if(right < 0) {
+            if(high < 0) {
                 break;
             }
             
-            // because -> ((****))
-            left = max(0, left);
+            //because all actual left parenthesis should be cancelled by right paranthesis
+            low = max(0, low); 
         }
         
-        return left == 0;
+        return low == 0;
     }
 };
 
