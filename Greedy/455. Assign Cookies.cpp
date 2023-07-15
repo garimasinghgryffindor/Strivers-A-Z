@@ -36,3 +36,30 @@ public:
 
 
 // GREEDY APPROACH
+
+class Solution {
+public:
+    int findContentChildren(vector<int>& g, vector<int>& s) {
+        
+        if(s.size()==0 || g.size()==0)
+            return 0;
+        
+        sort(g.begin(), g.end());
+        sort(s.begin(), s.end());
+        int content=0;
+        int i=0, j=0;
+        
+        // i-> index of children  &  j-> index of cookies
+        for(j=0 ; j<s.size() ; j++) {
+            if(s[j] >= g[i]) {
+                content++;
+                i++;
+            }
+            if(i == g.size()) {
+                break;
+            }
+        }
+        
+        return content;
+    }
+};
