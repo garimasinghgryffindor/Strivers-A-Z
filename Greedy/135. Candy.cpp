@@ -91,6 +91,49 @@ public:
 };
 
 
+
+// BRUTE FORCE
+// USING EXTRA O(N) SPACE
+class Solution {
+public:
+    int candy(vector<int>& ratings) {
+        int n = ratings.size();
+        if(n <= 1) {
+            return n;
+        }
+        vector<int>candies(n, 1);
+        map<int,vector<int>>mp;
+        
+        for(int i=0 ; i<n ; i++) {
+            mp[ratings[i]].push_back(i);
+        }
+        
+        
+        for(auto rating: mp) {
+            for(auto pos: rating.second) {
+                // comparing with left candidates
+                if(pos > 0 && ratings[pos] > ratings[pos-1]) {
+                    candies[pos] = max(candies[pos], candies[pos-1] + 1);
+                }
+                
+                 // comparing with right candidates
+                if(pos < n-1 && ratings[pos] > ratings[pos+1]) {
+                    candies[pos] = max(candies[pos], candies[pos+1] + 1);
+                }
+                
+            }
+        }
+        
+        int res = 0;
+        for(int x: candies)
+            res += x;
+        
+        return res;
+    }
+};
+
+
+
 // GREEDY
 // USING EXTRA O(N) SPACE
 class Solution {
